@@ -78,9 +78,9 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
           >
             {!chatStarted && (
               <div id="intro" className="mt-[26vh] max-w-chat mx-auto relative z-40">
-                <h1 className="text-6xl text-center font-bold text-white mb-2 relative z-40">BubbleDOT</h1>
+                <h1 className="text-6xl text-center font-bold text-white mb-2 relative z-40">AlgoBot</h1>
                 <p className="mb-4 text-center text-white relative z-40">
-                  Bring ideas to lìfe in seconds or get help on existing project
+                  Bring ideas to life in seconds or get help on existing project
                 </p>
               </div>
             )}

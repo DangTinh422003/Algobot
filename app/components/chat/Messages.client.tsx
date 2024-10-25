@@ -42,7 +42,7 @@ export const Messages = React.forwardRef<HTMLDivElement, MessagesProps>((props: 
                 <div className="grid grid-col-1 w-full">
                   {/* {isUserMessage ? <UserMessage content={content} /> : <AssistantMessage content={content} />} */}
                   {isUserMessage ? (
-                    <p className="text-white flex items-center font-medium text-lg">Welcome to BubbleDot</p>
+                    <p className="text-white flex items-center font-medium text-lg">Welcome to AlgoBot</p>
                   ) : (
                     <AssistantMessage content={content} />
                   )}

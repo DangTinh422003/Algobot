@@ -147,9 +147,40 @@ export const ChatImpl = memo(({ initialMessages, storeMessageHistory }: ChatProp
   };
 
   const sendMessage = async (_event: React.UIEvent, messageInput?: string) => {
-    // const _input = messageInput || input;
+    let _input = messageInput ?? input;
+    _input += `
+    The easiest way to use Algorand Python is to instantiate a template with AlgoKit via algokit init -t python. This will give you a full development environment with intellisense, linting, automatic formatting, breakpoint debugging, deployment and CI/CD.
 
-    const _input = 'generate nextjs project with typescript and antd';
+    Alternatively, if you want to start from scratch you can do the following:
+
+    Ensure you have Python 3.12+
+
+    Install AlgoKit CLI
+
+    Check you can run the compiler:
+
+    algokit compile py -h
+    Install Algorand Python into your project poetry add algorand-python
+
+    Create a contract in a (e.g.) contract.py file:
+
+    from algopy import ARC4Contract, arc4
+    class HelloWorldContract(ARC4Contract):
+        @arc4.abimethod
+        def hello(self, name: arc4.String) -> arc4.String:
+            return "Hello, " + name
+    Compile the contract:
+
+    algokit compile py contract.py
+    You should now have HelloWorldContract.approval.teal and HelloWorldContract.clear.teal on the file system!
+
+    We generally recommend using ARC-32 and generated typed clients to have the most optimal deployment and consumption experience; to do this you need to ask PuyaPy to output an ARC-32 compatible app spec file:
+
+    algokit compile py contract.py --output-arc32 --no-output-teal
+    You should now have HelloWorldContract.arc32.json, which can be generated into a client e.g. using AlgoKit CLI:
+
+    algokit generate client HelloWorldContract.arc32.json --output client.py
+    `;
 
     if (_input.length === 0 || isLoading) {
       return;

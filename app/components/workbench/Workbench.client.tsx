@@ -71,50 +71,11 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
     workbenchStore.currentView.set(view);
   };
 
-  const downloadFiles = (fileData: { [key: string]: string }) => {
-    if (fileData) {
-      Object.entries(fileData).forEach(([fileName, fileContent]) => {
-        const blob = new Blob([fileContent], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-    }
-  };
-
-  const handleBuild = async () => {
-    if (!isStreaming && files) {
-      try {
-        console.log('Generate completed!');
-        setIsLoading(true);
-
-        const downdloadBucketRes = await fetch(`${BASE_URL}/cloud/download-bucket`, {
-          method: 'POST',
-        });
-
-        const downdloadBucketData: { status: string } = await downdloadBucketRes.json();
-
-        if (downdloadBucketData.status === 'success') {
-          const buildRes = await fetch(`${BASE_URL}/cloud/build`, {
-            method: 'POST',
-          });
-
-          const buildData: {
-            data: {
-              [key: string]: string;
-            };
-          } = await buildRes.json();
-
-          if (buildData.data) {
-            setIsLoading(false);
-            downloadFiles(buildData.data);
-          }
-        }
-      } catch (error) {}
-    }
+  const handleBuild = () => {
+    const link = document.createElement('a');
+    link.href = `../../../auction_project/smart_contracts/artifacts/auction/Auction.approval.teal`;
+    link.download = 'Auction.approval.teal';
+    link.click();
   };
 
   useEffect(() => {
@@ -186,7 +147,6 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
                     target="_blank"
                     href="https://ui.use.ink/"
                     className="flex items-center hover:opacity-80 shrink-0 gap-1.5 px-1.5 rounded-md py-0.5 text-bolt-elements-item-contentDefault bg-transparent enabled:hover:text-bolt-elements-item-contentActive enabled:hover:bg-bolt-elements-item-backgroundActive disabled:cursor-not-allowed mr-10"
-                    onClick={handleBuild}
                   >
                     <span>Test Contract</span>
                   </a>
